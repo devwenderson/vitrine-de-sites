@@ -7,9 +7,9 @@ import MainView3 from '@/views/site3/MainView3.vue'
 
 import HomeView1 from '@/views/site1/HomeView1.vue'
 import HomeView2 from '@/views/site2/HomeView2.vue'
+import HomeView3 from '@/views/site3/HomeView3.vue'
 
 import AboutView1 from '@/views/site1/AboutView1.vue'
-import AboutView2 from '@/views/site2/AboutView2.vue'
 
 const routesList = [
   { path: '/', component: HomeView },
@@ -26,14 +26,13 @@ const routesList = [
     component: MainView2,
     children: [
       { path: '', component: HomeView2 },
-      { path: 'sobre', component: AboutView2 },
     ],
   },
   {
     path: '/site3',
     component: MainView3,
     children: [
-      { path: '', component: () => import('@/views/site3/HomeView3.vue') },
+      { path: '', component: HomeView3 },
     ],
   },
 ]
