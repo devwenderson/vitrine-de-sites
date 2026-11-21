@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import MainView1 from '@/views/site1/MainView1.vue'
 import MainView2 from '@/views/site2/MainView2.vue'
+import MainView3 from '@/views/site3/MainView3.vue'
 
 import HomeView1 from '@/views/site1/HomeView1.vue'
 import HomeView2 from '@/views/site2/HomeView2.vue'
@@ -23,6 +24,13 @@ const routesList = [
       {path: '', component: HomeView2},
       {path: 'sobre', component: AboutView2}
     ]
+  },
+  {
+    path: '/site3',
+    component: MainView3,
+    children: [
+      { path: '', component: () => import('@/views/site3/HomeView3.vue') },
+    ],
   },
 ]
 
