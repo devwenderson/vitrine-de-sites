@@ -1,6 +1,7 @@
 <script setup>
-import { nextTick, onMounted, onUnmounted, watch } from 'vue'
+import { watch, nextTick } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import Navbar2 from '@/components/site2/Navbar2.vue'
 
 // Dados ilustrativos — troque pelos dados reais depois.
 const restaurant = {
@@ -31,17 +32,7 @@ const specialties = [
   { name: 'Quesadilla', category: 'Forno', description: 'Queijo derretido e tortilha dourada.', price: 'R$ 34', tone: 'orange' },
 ]
 
-// A navbar padrão do site2 fica acima deste conteúdo; escondemos enquanto
-// esta página está montada para manter o visual da referência.
-let navbar
-onMounted(() => {
-  navbar = document.querySelector('header')
-  if (navbar) navbar.style.display = 'none'
-})
-onUnmounted(() => {
-  if (navbar) navbar.style.display = ''
-})
-
+// (Navbar agora renderizada pelo componente Navbar2.vue)
 // Scroll suave para as âncoras do roteador.
 const route = useRoute()
 watch(
@@ -68,22 +59,6 @@ watch(
     <div class="garnish garnish--orange" aria-hidden="true"></div>
 
     <div class="screen">
-      <!-- TOPO -->
-      <div class="topbar">
-        <div class="topbar__menu">
-          <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>MENU BACK</span>
-        </div>
-        <nav class="topbar__nav" aria-label="Navegação">
-          <RouterLink :to="{ path: '/site2', hash: '#sobre' }">Sobre</RouterLink>
-          <RouterLink :to="{ path: '/site2', hash: '#cardapio' }">Cardápio</RouterLink>
-          <RouterLink :to="{ path: '/site2', hash: '#especiais' }">Especiais</RouterLink>
-          <RouterLink :to="{ path: '/site2', hash: '#contato' }">Contato</RouterLink>
-        </nav>
-        <a class="pill pill--coral topbar__cta" :href="restaurant.whatsapp" target="_blank" rel="noopener">
-          Delivery
-        </a>
-      </div>
 
       <!-- HERO -->
       <section id="inicio" class="hero">
@@ -135,7 +110,8 @@ watch(
                 Pedir agora
               </a>
               <!-- Substitua por <img> do prato -->
-              <div class="card__photo ph" :class="`ph--${dish.tone}`" role="img" :aria-label="`Foto de ${dish.name}`"></div>
+              <div class="card__photo ph" :class="`ph--${dish.tone}`" role="img" :aria-label="`Foto de ${dish.name}`">
+              </div>
             </div>
             <div class="card__meta">
               <h3>{{ dish.name }}</h3>
@@ -159,7 +135,8 @@ watch(
                 Pedir agora
               </a>
               <!-- Substitua por <img> do prato -->
-              <div class="card__photo ph" :class="`ph--${dish.tone}`" role="img" :aria-label="`Foto de ${dish.name}`"></div>
+              <div class="card__photo ph" :class="`ph--${dish.tone}`" role="img" :aria-label="`Foto de ${dish.name}`">
+              </div>
             </div>
             <div class="card__meta">
               <h3>{{ dish.name }}</h3>
@@ -314,13 +291,11 @@ watch(
 
 /* Bordas irregulares, como pincel */
 .brush {
-  clip-path: polygon(
-    0% 3%, 5% 1%, 11% 3%, 17% 0%, 24% 2%, 31% 0%, 38% 3%, 45% 1%,
-    52% 3%, 59% 0%, 66% 2%, 73% 0%, 80% 3%, 87% 1%, 94% 3%, 100% 1%,
-    100% 97%, 94% 99%, 88% 97%, 81% 100%, 74% 98%, 67% 100%, 60% 97%,
-    53% 99%, 46% 97%, 39% 100%, 32% 98%, 25% 100%, 18% 98%, 11% 100%,
-    5% 98%, 0% 99%
-  );
+  clip-path: polygon(0% 3%, 5% 1%, 11% 3%, 17% 0%, 24% 2%, 31% 0%, 38% 3%, 45% 1%,
+      52% 3%, 59% 0%, 66% 2%, 73% 0%, 80% 3%, 87% 1%, 94% 3%, 100% 1%,
+      100% 97%, 94% 99%, 88% 97%, 81% 100%, 74% 98%, 67% 100%, 60% 97%,
+      53% 99%, 46% 97%, 39% 100%, 32% 98%, 25% 100%, 18% 98%, 11% 100%,
+      5% 98%, 0% 99%);
 }
 
 /* Tipografia */
@@ -400,58 +375,6 @@ h1 {
 
 .ph--lime {
   background-color: #94b64a;
-}
-
-/* Barra do topo */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 24px;
-  border-bottom: 1px solid #eee;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.topbar__menu {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.burger {
-  display: grid;
-  gap: 3px;
-}
-
-.burger i {
-  display: block;
-  width: 16px;
-  height: 2px;
-  background: var(--ink);
-}
-
-.topbar__nav {
-  display: flex;
-  gap: 14px;
-}
-
-.topbar__nav a {
-  color: var(--muted);
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.topbar__nav a:hover {
-  color: var(--coral);
-}
-
-.topbar__cta {
-  padding: 7px 14px;
-  white-space: nowrap;
 }
 
 /* Hero */
@@ -687,14 +610,6 @@ h1 {
   }
 
   .garnish {
-    display: none;
-  }
-
-  .topbar {
-    padding: 12px 14px;
-  }
-
-  .topbar__nav {
     display: none;
   }
 
